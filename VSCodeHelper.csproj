@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\c_cpp_properties.json" />
+    <None Remove="Assets\helloworld.cpp" />
+    <None Remove="Assets\launch.json" />
+    <None Remove="Assets\tasks.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\c_cpp_properties.json" />
+    <EmbeddedResource Include="Assets\helloworld.cpp" />
+    <EmbeddedResource Include="Assets\launch.json" />
+    <EmbeddedResource Include="Assets\tasks.json" />
+  </ItemGroup>
+
+</Project>

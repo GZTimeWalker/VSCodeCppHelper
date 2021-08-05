@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
-namespace VSCodeHelper
+namespace VSCodeCppHelper
 {
     class Program
     {
@@ -241,9 +241,9 @@ namespace VSCodeHelper
                 path = Path.Combine(path, ".vscode");
                 Directory.CreateDirectory(path);
 
-                string launch = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeHelper.Assets.launch.json")!).ReadToEnd();
-                string tasks = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeHelper.Assets.tasks.json")!).ReadToEnd();
-                string cpp = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeHelper.Assets.c_cpp_properties.json")!).ReadToEnd();
+                string launch = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeCppHelper.Assets.launch.json")!).ReadToEnd();
+                string tasks = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeCppHelper.Assets.tasks.json")!).ReadToEnd();
+                string cpp = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeCppHelper.Assets.c_cpp_properties.json")!).ReadToEnd();
 
                 launch = launch.Replace("{GCCPATH}", gccpath);
                 cpp = cpp.Replace("{GCCPATH}", gccpath)
@@ -285,7 +285,7 @@ namespace VSCodeHelper
                 string codepath = Path.Combine(path, "Code");
                 Directory.CreateDirectory(codepath);
 
-                string hello = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeHelper.Assets.helloworld.cpp")!).ReadToEnd();
+                string hello = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("VSCodeCppHelper.Assets.helloworld.cpp")!).ReadToEnd();
 
                 Console.WriteLine($"[>] 写入{Path.Combine(codepath, "helloworld.cpp")}");
                 File.WriteAllText(Path.Combine(codepath, "helloworld.cpp"), hello);

@@ -10,7 +10,7 @@ namespace VSCodeCppHelper
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("====================== Visual Studio Code C++ Helper ======================");
+            Console.WriteLine("=================== Visual Studio Code C++ Helper V1.0.0 ===================");
 
             try
             {

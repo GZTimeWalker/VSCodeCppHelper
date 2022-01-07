@@ -10,7 +10,9 @@ namespace VSCodeCppHelper
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("=================== Visual Studio Code C++ Helper V1.0.1 ===================");
+            Console.WriteLine("=================== Visual Studio Code C++ Helper V1.0.2 ===================");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("[!] 仅支持 win32-x64 操作系统并使用 TDM-GCC 作为编译器！");
 
             try
             {
@@ -23,7 +25,7 @@ namespace VSCodeCppHelper
                 if(!vsc_install || !gcc_install)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("[!] 请确保VSCode和GCC已经正确安装。");
+                    Console.WriteLine("[!] 请确保VSCode和TDM-GCC已经正确安装。");
                     return;
                 }
 
@@ -155,7 +157,7 @@ namespace VSCodeCppHelper
             if (code != 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[!] 当前GCC没有正确安装!");
+                Console.WriteLine("[!] 当前TDM-GCC没有正确安装!");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("[!] 从这里下载它: https://github.com/jmeubank/tdm-gcc/releases/download/v10.3.0-tdm64-2/tdm64-gcc-10.3.0-2.exe");
@@ -257,7 +259,7 @@ namespace VSCodeCppHelper
                 File.WriteAllText(Path.Combine(path, "c_cpp_properties.json"), cpp);
 
                 var extlist = RunCMD("code --list-extensions");
-                var exts = new string[]{ "ms-vscode.cpptools", "TabNine.tabnine-vscode", "austin.code-gnu-global", "formulahendry.code-runner" };
+                var exts = new string[]{ "ms-vscode.cpptools", "austin.code-gnu-global", "formulahendry.code-runner" };
 
                 foreach(string ext in exts)
                 {
@@ -292,7 +294,7 @@ namespace VSCodeCppHelper
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"[*] 测试编译hello world...");
-                string output = RunCMD($"g++ -g {Path.Combine(codepath, "helloworld.cpp")} -o {Path.Combine(path, "Debug/helloworld.exe")} -static-libgcc");
+                string output = RunCMD($"g++ -g {Path.Combine(codepath, "helloworld.cpp")} -o {Path.Combine(path, "Debug/helloworld.exe")}");
 
                 Console.WriteLine($"[*] 测试运行hello world...");
                 output = RunCMD(Path.Combine(path, "Debug/helloworld.exe"));

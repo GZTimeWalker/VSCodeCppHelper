@@ -10,7 +10,7 @@ namespace VSCodeCppHelper
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("=================== Visual Studio Code C++ Helper V1.0.2 ===================");
+            Console.WriteLine("=================== Visual Studio Code C++ Helper V1.1.0 ===================");
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("[!] 仅支持 win32-x64 操作系统并使用 TDM-GCC 作为编译器！");
 
@@ -18,14 +18,35 @@ namespace VSCodeCppHelper
             {
                 Console.ForegroundColor = ConsoleColor.White;
 
+                string gccpath = "";
+                string gccversion = "";
+                bool manual_gcc = false;
+
+                Console.Write("[>] 是否手动配置 GCC [y/N]: ");
+                manual_gcc = Console.ReadLine()?.ToLower() == "y";
+
+                if(manual_gcc)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("[!] 不保证手动配置的可用性！");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("[*] 请选择 GCC 的文件夹绝对路径，确保其中包含 bin、gdb64 及 x86_64-w64-mingw32...");
+                    Console.Write("[>] 请输入: ");
+                    gccpath = Console.ReadLine()?.Trim() ?? "";
+                    gccpath = gccpath.Replace("\\", "/");
+                    Console.WriteLine("[*] 请选择你的 GCC 的版本号，如[10.3.0]...");
+                    Console.Write("[>] 请输入: ");
+                    gccversion = Console.ReadLine()?.Trim() ?? "";
+                }
+
                 bool vsc_install = CheckVSCode();
 
-                bool gcc_install = CheckGCC();
+                bool gcc_install = manual_gcc || CheckGCC();
 
                 if(!vsc_install || !gcc_install)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("[!] 请确保VSCode和TDM-GCC已经正确安装。");
+                    Console.WriteLine("[!] 请确保 VSCode 和 TDM-GCC 已经正确安装。");
                     return;
                 }
 
@@ -47,7 +68,8 @@ namespace VSCodeCppHelper
 
                 Console.WriteLine($"[*] 你选择的文件夹是: \t{path}");
 
-                (string gccpath, string gccversion) = GetGCCInfo();
+                if(!manual_gcc)
+                    (gccpath, gccversion) = GetGCCInfo();
 
                 ConfigVSCode(path, gccpath, gccversion);
 
